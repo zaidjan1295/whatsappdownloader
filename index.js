@@ -9,6 +9,8 @@ const expressStatusMonitor = require('express-status-monitor');
 const multer = require('multer');
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 const dotenv = require("dotenv")
+const axios = require("axios")
+const fs = require("fs")
 dotenv.config();
 
 const app = express();
@@ -22,15 +24,24 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 (async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage();
     await page.goto('https://m.starmakerstudios.com/d/playrecording?app=sm&from_user_id=6755399375119253&is_convert=true&recordingId=6755399308749310&share_type=whatsapp');
-    await page.screenshot({path: 'example.png'});
-   
-    await browser.close();
-  })();
+    await page.waitFor("source")
+    const downloadLink = await page.evaluate(() => {
+      return document.querySelector("source").getAttribute("src")
+    })
+    axios({
+      method: "get",
+      url: downloadLink,
+      responseType: "stream"
+    })
+    .then(function (response) {
+      response.data.pipe(fs.createWriteStream("master.mp4"));
+      console.log("downloaded")
+    });
+})();
 
 
 // const products = await page.evaluate(() => {
