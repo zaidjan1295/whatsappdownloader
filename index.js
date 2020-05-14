@@ -50,18 +50,14 @@ app.post('/messageSent', (req, res) => {
 
 })
 
-
-client
-  .messages
-  .create({
-     from: 'whatsapp:+14155238886',
-     body: `It's taco time!`,
-     to: 'whatsapp:+919886406126'
-   })
-  .then(message => console.log(message.sid))
-  .catch(err => {
-    throw(err)
-  })
+// console.log(client, client.messages)
+client.messages
+    .create({
+        from: 'whatsapp:+14155238886',
+        body: 'Check you DPay wallet for updates!',
+        to: 'whatsapp:+919886406126'
+      })
+    .then(message => console.log(message.sid));
 
 
   app.listen(port = 8000, () => {
