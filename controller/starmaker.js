@@ -1,6 +1,5 @@
 const puppeteer = require("puppeteer")
 const starMakerScraper = async (message) => {
-    console.log("mess", message)
     const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox']});
     try {
         const page = await browser.newPage();
