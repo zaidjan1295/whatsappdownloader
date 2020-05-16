@@ -6,7 +6,7 @@ const requestRouter = async (message) => {
         case 'm.starmakerstudios.com':
             return await starmaker.starMakerScraper(message)
         default:
-            return "Send starmaker links only"
+            return "Send Starmaker links only"
     }
 }
 

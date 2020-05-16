@@ -1,12 +1,14 @@
 const puppeteer = require("puppeteer")
-const starMakerScraper = async (req, res) => {
-    const browser = await puppeteer.launch();
+const starMakerScraper = async (message) => {
+    console.log("mess", message)
+    const browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
-    await page.goto('https://m.starmakerstudios.com/d/playrecording?app=sm&from_user_id=6755399375119253&is_convert=true&recordingId=6755399308749310&share_type=whatsapp');
+    await page.goto(message);
     await page.waitFor("source")
     const downloadLink = await page.evaluate(() => {
         return document.querySelector("source").getAttribute("src")
     })
+    await browser.close()
     return downloadLink
     // axios({
     //     method: "get",
