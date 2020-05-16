@@ -34,7 +34,7 @@ app.post('/messageReceived', async (req, res) => {
 })
 
 app.post('/messageSent', (req, res) => {
-  console.log("request", JSON.stringify(req))
+  // console.log("request", JSON.stringify(req))
 })
 
 
