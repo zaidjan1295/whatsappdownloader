@@ -1,5 +1,6 @@
+const puppeteer = require("puppeteer")
 const starMakerScraper = async (req, res) => {
-    const browser = await puppeteer.launch({headless: false});
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto('https://m.starmakerstudios.com/d/playrecording?app=sm&from_user_id=6755399375119253&is_convert=true&recordingId=6755399308749310&share_type=whatsapp');
     await page.waitFor("source")

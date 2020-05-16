@@ -13,7 +13,6 @@ const axios = require("axios")
 const fs = require("fs")
 dotenv.config();
 const app = express();
-const url = require('url');
 
 const starmaker = require("./controller/starmaker")
 const twilio = require("./controller/twilio")
@@ -28,9 +27,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.post('/messageReceived', async (req, res) => {
-  const downloadLink = await starmaker.starMakerScraper()
-  const {from, to, body} = req.body
-  twilio.sendMessage(from, to, body)
+  const {From: from, To: to, Body: body} = req.body
+  // console.log(from, to, body)
+  // console.log(JSON.stringify(req.body))
+  const downloadLink = await starmaker.starMakerScraper(body)
+  // console.log("download link",downloadLink)
+  // twilio.sendMessage(from, to, downloadLink)
 })
 
 app.post('/messageSent', (req, res) => {
