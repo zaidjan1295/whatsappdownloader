@@ -29,11 +29,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/messageReceived', async (req, res) => {
   const {From: from, To: to, Body: body} = req.body
   const response = await requestRouter.requestRouter(body)
-  twilio.sendMessage(from, to, response)
+  console.log("resposen", response)
+  // twilio.sendMessage(from, to, response)
 })
 
 app.post('/messageSent', (req, res) => {
-  console.log("request", JSON.stringify(req))
+  // console.log("request", JSON.stringify(req))
 })
 
 
